@@ -6,7 +6,7 @@ Projetos abertos de uma estação caseira para o robô quadrúpede **Unitree Go2
 
 ![Estação de liga/desliga do Go2, render do conceito](pt-BR/estacao_go2/imagens/01_visao_geral.png)
 
-> **Esta estação não carrega o robô.** Apesar do nome do repositório, nada aqui se liga aos contatos de carga do Go2. Quem carrega é o dock oficial da Unitree. Dele, este projeto só aproveita a ideia do marcador num poste à frente do robô.
+> **Esta estação não carrega o robô.** Nada aqui se liga aos contatos de carga do Go2. Quem carrega é o dock oficial da Unitree. Dele, este projeto só aproveita a ideia do marcador num poste à frente do robô.
 
 ---
 
@@ -30,7 +30,7 @@ Cada pasta de idioma tem dois pacotes independentes. O segundo amplia o primeiro
 - Se você só quer que o robô volte para um lugar fixo no fim da missão, monte o **`go2_estacionamento`**. Dá para fazer numa tarde, não tem eletrônica e custa pouco mais que uma chapa de MDF.
 - Se você também quer desligar o robô quando ele estiver estacionado, e ligá-lo de novo pelo PC, monte a **`estacao_go2`**.
 
-Cada pacote é dividido em partes numeradas. As partes de **construção** são guias passo a passo para você na oficina. As partes de **software** são especificações detalhadas, escritas para entregar a um assistente de programação com IA ([Claude Code](https://claude.com/claude-code)), que escreve e testa o código na sua configuração do robô. O repositório guarda os projetos de hardware e essas especificações. O software do robô ainda não foi escrito.
+Cada pacote é dividido em partes numeradas. As partes de **construção** são guias passo a passo para você na oficina. As partes de **software** são especificações detalhadas, escritas para entregar a um assistente de programação com IA ([Claude Code](https://claude.com/claude-code)). O **software de estacionamento** foi implementado e testado num Go2 EDU real (veja [Resultados num Go2 real](#resultados-num-go2-real-novembro-de-2026)); o código dele ainda não está publicado neste repositório. O **software da estação de liga/desliga** continua sendo só uma especificação.
 
 ---
 
@@ -55,7 +55,7 @@ flowchart TD
 - O robô chega a uma **pose de preparação** 1,1 m atrás da vaga, vê a tag com a **câmera frontal** e entra andando de frente.
 - A aproximação usa **referência gravada** (*teach and repeat*). Uma vez, você coloca o robô à mão no lugar certo, e o software grava como a tag aparece na câmera, em pé (`REF_EM_PE`) e deitado (`REF_DEITADO`). Daí em diante, o controlador move o robô até a pose atual da tag coincidir com a gravada. Assim, nada depende da posição ou da inclinação exata da câmera.
 - O Go2 anda de lado, então o controlador corrige ao mesmo tempo o erro para frente, o lateral e o de yaw, com velocidades baixas perto do alvo.
-- **Precisão desejada (em pé):** ≤ 5 mm para frente/trás, ≤ 10 mm para os lados, ≤ 2° de yaw, em pelo menos 18 de 20 estacionamentos seguidos.
+- **Precisão desejada (em pé) — meta de projeto, ainda não medida em milímetros e graus:** ≤ 5 mm para frente/trás, ≤ 10 mm para os lados, ≤ 2° de yaw, em pelo menos 18 de 20 estacionamentos seguidos. Os testes no robô real usaram um critério mais simples, de acerto ou erro (veja [Resultados num Go2 real](#resultados-num-go2-real-novembro-de-2026)).
 - Depois de deitar, o robô confere a posição pela tag de novo. Se estiver fora da tolerância, ele levanta, recua e tenta outra vez (no máximo mais duas vezes).
 
 ### 2. Apertar o botão da bateria (só na estação)
@@ -67,6 +67,24 @@ flowchart TD
 - Toda a ligação é **sem solda**: plugues P4, um conversor USB-C, jumpers dupont e um borne de parafuso. A energia vem de um nobreak de 12 V.
 
 ![Esquema elétrico](pt-BR/estacao_go2/imagens/esquema_eletrico.png)
+
+---
+
+## Resultados num Go2 real (novembro de 2026)
+
+O software de estacionamento (`go2_estacionamento`) foi implementado e testado num Unitree Go2 EDU real. O código dele ainda não está publicado neste repositório.
+
+| Rodada | Tentativas | Tentativas corretas |
+|---|---|---|
+| 1 | 20 | 8 |
+| 2 (depois dos ajustes) | 20 | 18 |
+
+- **Quando uma tentativa contou como correta:** a regra é baseada nos trilhos que ficam na base. Se o robô se encaixou corretamente nos trilhos, a tentativa deu certo.
+- **Ajustes entre as rodadas:** basicamente em como o robô entrava antes de chegar para estacionar.
+- **Ainda não medido:** o erro do estacionamento em milímetros e em graus. Os valores de precisão em [Como funciona](#1-estacionamento-preciso-com-apriltag) (≤ 5 mm, ≤ 10 mm, ≤ 2°) são metas de projeto e não foram conferidos nesses testes.
+- A estação de liga/desliga (`estacao_go2`) continua sendo um conceito (v0.2), não validado no robô real.
+
+Os resultados acima cobrem só o estacionamento testado; outras funções descritas neste README podem ainda não estar implementadas.
 
 ---
 

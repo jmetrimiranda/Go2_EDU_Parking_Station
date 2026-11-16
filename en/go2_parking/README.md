@@ -4,6 +4,8 @@ Version 1.0 · 2026-10-31
 
 The robot finishes its navigation, goes to a point in front of the parking spot, sees an AprilTag mounted on a post and walks in forwards until it stops **always in the same place**: with the center of its body over an **X** marked on the floor. Then it lies down there. To leave, it stands up and walks backwards.
 
+> **Status (November 2026):** the parking software was implemented and tested on a real Go2 EDU. See [Results on a real Go2](#results-on-a-real-go2-november-2026). Its code is not yet published in this repository.
+
 > Note: the drawings and renders in `images/` still have Portuguese labels; the measurements are the same as in this text.
 
 ![Robot parked in the spot](images/r2_robot_parked.png)
@@ -81,6 +83,23 @@ All measurements are in **mm** and, in parentheses, in **cm**.
 | Tape measure, 1 m (100 cm) ruler, square, pencil, power screwdriver | — | Tools |
 
 The details and the options for each material are in Part 1.
+
+---
+
+## Results on a real Go2 (November 2026)
+
+The software from Part 2 was implemented and tested on a real Unitree Go2 EDU. Its code is not yet published in this repository.
+
+| Round | Attempts | Correct attempts |
+|---|---|---|
+| 1 | 20 | 8 |
+| 2 (after adjustments) | 20 | 18 |
+
+- **When an attempt counted as correct:** the rule is based on the rails on the base. If the robot fitted correctly into the rails, the attempt was correct.
+- **Adjustments between the rounds:** mainly to how the robot came in before reaching the parking position.
+- **Not measured yet:** the parking error in millimeters and degrees. The accuracy figures in [Part 2, section 3](part2_parking_software/README.md#3-goal-and-success-criteria) (≤ 5 mm, ≤ 10 mm, ≤ 2°) are design targets and were not checked in these tests.
+
+The results above cover only the parking that was tested; other functions described in this README may not be implemented yet.
 
 ---
 

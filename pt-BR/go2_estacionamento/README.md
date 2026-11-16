@@ -4,6 +4,8 @@ Versão 1.0 · 31/10/2026
 
 O robô termina a navegação, vai até um ponto na frente da vaga, enxerga uma AprilTag presa num poste e entra andando de frente até parar **sempre no mesmo lugar**: com o centro do corpo sobre um **X** marcado no chão. Depois ele se deita ali. Para sair, ele levanta e anda de ré.
 
+> **Situação (novembro de 2026):** o software de estacionamento foi implementado e testado num Go2 EDU real. Veja [Resultados num Go2 real](#resultados-num-go2-real-novembro-de-2026). O código dele ainda não está publicado neste repositório.
+
 ![Robô estacionado na vaga](imagens/r2_robo_estacionado.png)
 
 ## Dá para fazer só com isto?
@@ -79,6 +81,23 @@ Todas as medidas estão em **mm** e, entre parênteses, em **cm**.
 | Trena, régua de 1 m (100 cm), esquadro, lápis, parafusadeira | — | Ferramentas |
 
 Os detalhes e as opções de cada material estão na Parte 1.
+
+---
+
+## Resultados num Go2 real (novembro de 2026)
+
+O software da Parte 2 foi implementado e testado num Unitree Go2 EDU real. O código dele ainda não está publicado neste repositório.
+
+| Rodada | Tentativas | Tentativas corretas |
+|---|---|---|
+| 1 | 20 | 8 |
+| 2 (depois dos ajustes) | 20 | 18 |
+
+- **Quando uma tentativa contou como correta:** a regra é baseada nos trilhos que ficam na base. Se o robô se encaixou corretamente nos trilhos, a tentativa deu certo.
+- **Ajustes entre as rodadas:** basicamente em como o robô entrava antes de chegar para estacionar.
+- **Ainda não medido:** o erro do estacionamento em milímetros e em graus. Os valores de precisão da [Parte 2, seção 3](parte2_software_estacionamento/README.md#3-objetivo-e-critérios-de-sucesso) (≤ 5 mm, ≤ 10 mm, ≤ 2°) são metas de projeto e não foram conferidos nesses testes.
+
+Os resultados acima cobrem só o estacionamento testado; outras funções descritas neste README podem ainda não estar implementadas.
 
 ---
 

@@ -6,7 +6,7 @@ Open designs for a home-made station for the **Unitree Go2** quadruped robot. Th
 
 ![Go2 power on/off station, concept render](en/go2_power_station/images/01_overview.png)
 
-> **This station does not charge the robot.** Despite the repository name, nothing here connects to the Go2's charging contacts. The official Unitree dock is the charging solution. From it, this project only borrows the idea of a marker on a post in front of the robot.
+> **This station does not charge the robot.** Nothing here connects to the Go2's charging contacts. The official Unitree dock is the charging solution. From it, this project only borrows the idea of a marker on a post in front of the robot.
 
 ---
 
@@ -30,7 +30,7 @@ Each language folder contains two self-contained packages. The second one builds
 - If you only want the robot to return to a fixed place at the end of a mission, build **`go2_parking`**. It takes an afternoon, needs no electronics and costs little more than a sheet of MDF.
 - If you also want to switch the robot off when it is parked and switch it on again from your PC, build **`go2_power_station`**.
 
-Each package is split into numbered parts. **Build** parts are step-by-step guides for you in the workshop. **Software** parts are detailed specifications written to be handed to an AI coding assistant ([Claude Code](https://claude.com/claude-code)), which then writes and tests the code against your robot setup. The repository holds the hardware designs and these specifications. The robot software itself has not been written yet.
+Each package is split into numbered parts. **Build** parts are step-by-step guides for you in the workshop. **Software** parts are detailed specifications written to be handed to an AI coding assistant ([Claude Code](https://claude.com/claude-code)). The **parking software** has been implemented and tested on a real Go2 EDU (see [Results on a real Go2](#results-on-a-real-go2-november-2026)); its code is not yet published in this repository. The **power station software** is still only a specification.
 
 ---
 
@@ -55,7 +55,7 @@ flowchart TD
 - The robot arrives at a **staging pose** 1.1 m behind the spot. It sees the tag with its **front camera** and walks in forwards.
 - The approach uses **teach and repeat**. Once, you place the robot by hand in the correct spot. The software records how the tag looks from the camera, both standing (`REF_STANDING`) and lying down (`REF_LYING`). From then on, the controller drives the robot until the live tag pose matches the recorded one. This avoids any dependence on the exact camera position or tilt.
 - The Go2 can walk sideways, so the controller corrects forward, lateral and yaw errors at the same time, with low speed limits near the target.
-- **Target accuracy (standing):** ≤ 5 mm forward/backward, ≤ 10 mm sideways, ≤ 2° yaw, in at least 18 of 20 consecutive runs.
+- **Target accuracy (standing) — design target, not yet measured in millimeters and degrees:** ≤ 5 mm forward/backward, ≤ 10 mm sideways, ≤ 2° yaw, in at least 18 of 20 consecutive runs. The tests on the real robot used a simpler pass/fail criterion (see [Results on a real Go2](#results-on-a-real-go2-november-2026)).
 - After lying down, the robot checks its position with the tag again. If it is out of tolerance, it stands up, backs off and retries (up to two more times).
 
 ### 2. Pressing the battery button (power station only)
@@ -67,6 +67,24 @@ flowchart TD
 - Everything is wired **without soldering**: P4 barrel plugs, a USB-C converter, Dupont jumpers and a screw terminal. Power comes from a 12 V mini UPS.
 
 ![Wiring diagram](en/go2_power_station/images/wiring_diagram.png)
+
+---
+
+## Results on a real Go2 (November 2026)
+
+The parking software (`go2_parking`) was implemented and tested on a real Unitree Go2 EDU. Its code is not yet published in this repository.
+
+| Round | Attempts | Correct attempts |
+|---|---|---|
+| 1 | 20 | 8 |
+| 2 (after adjustments) | 20 | 18 |
+
+- **When an attempt counted as correct:** the rule is based on the rails on the base. If the robot fitted correctly into the rails, the attempt was correct.
+- **Adjustments between the rounds:** mainly to how the robot came in before reaching the parking position.
+- **Not measured yet:** the parking error in millimeters and degrees. The accuracy figures in [How it works](#1-precise-parking-with-an-apriltag) (≤ 5 mm, ≤ 10 mm, ≤ 2°) are design targets and were not checked in these tests.
+- The power station (`go2_power_station`) is still a concept (v0.2) and has not been validated on the real robot.
+
+The results above cover only the parking that was tested; other functions described in this README may not be implemented yet.
 
 ---
 
