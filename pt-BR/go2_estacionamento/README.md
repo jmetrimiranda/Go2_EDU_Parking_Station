@@ -86,13 +86,14 @@ Os detalhes e as opções de cada material estão na Parte 1.
 
 ## Resultados num Go2 real (novembro de 2026)
 
-O software da Parte 2 foi implementado e testado num Unitree Go2 EDU real. O código dele ainda não está publicado neste repositório.
+O software da Parte 2 foi implementado e testado num Unitree Go2 EDU real. O código foi escrito com ajuda do Claude Code a partir da [especificação da Parte 2](parte2_software_estacionamento/README.md); o autor do repositório montou a base do teste, fez os ajustes e testou no Go2 real. O código ainda não está publicado neste repositório.
 
 | Rodada | Tentativas | Tentativas corretas |
 |---|---|---|
 | 1 | 20 | 8 |
 | 2 (depois dos ajustes) | 20 | 18 |
 
+- **Base do teste:** os testes usaram os trilhos-guia impressos da estação de liga/desliga (peças [07/07b](../estacao_go2/parte3_construcao_mecanismo/README.md)). Só os trilhos foram usados: o servo, o ESP32 e o liga/desliga continuam sem validação no robô real.
 - **Quando uma tentativa contou como correta:** a regra é baseada nos trilhos que ficam na base. Se o robô se encaixou corretamente nos trilhos, a tentativa deu certo.
 - **Ajustes entre as rodadas:** basicamente em como o robô entrava antes de chegar para estacionar.
 - **Ainda não medido:** o erro do estacionamento em milímetros e em graus. Os valores de precisão da [Parte 2, seção 3](parte2_software_estacionamento/README.md#3-objetivo-e-critérios-de-sucesso) (≤ 5 mm, ≤ 10 mm, ≤ 2°) são metas de projeto e não foram conferidos nesses testes.

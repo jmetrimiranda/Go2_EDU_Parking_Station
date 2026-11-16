@@ -88,13 +88,14 @@ The details and the options for each material are in Part 1.
 
 ## Results on a real Go2 (November 2026)
 
-The software from Part 2 was implemented and tested on a real Unitree Go2 EDU. Its code is not yet published in this repository.
+The software from Part 2 was implemented and tested on a real Unitree Go2 EDU. The code was written with the help of Claude Code from the [Part 2 specification](part2_parking_software/README.md); the repository author built the test base, made the adjustments and ran the tests on the real Go2. The code is not yet published in this repository.
 
 | Round | Attempts | Correct attempts |
 |---|---|---|
 | 1 | 20 | 8 |
 | 2 (after adjustments) | 20 | 18 |
 
+- **Test base:** the tests used the printed guide rails from the power station (parts [07/07b](../go2_power_station/part3_mechanism_build/README.md)). Only the rails were used: the servo, the ESP32 and the power on/off mechanism have not been validated on the real robot.
 - **When an attempt counted as correct:** the rule is based on the rails on the base. If the robot fitted correctly into the rails, the attempt was correct.
 - **Adjustments between the rounds:** mainly to how the robot came in before reaching the parking position.
 - **Not measured yet:** the parking error in millimeters and degrees. The accuracy figures in [Part 2, section 3](part2_parking_software/README.md#3-goal-and-success-criteria) (≤ 5 mm, ≤ 10 mm, ≤ 2°) are design targets and were not checked in these tests.

@@ -72,17 +72,18 @@ flowchart TD
 
 ## Results on a real Go2 (November 2026)
 
-The parking software (`go2_parking`) was implemented and tested on a real Unitree Go2 EDU. Its code is not yet published in this repository.
+The parking software (`go2_parking`) was implemented and tested on a real Unitree Go2 EDU. The code was written with the help of Claude Code from the [Part 2 specification](en/go2_parking/part2_parking_software/README.md); the repository author built the test base, made the adjustments and ran the tests on the real Go2. The code is not yet published in this repository.
 
 | Round | Attempts | Correct attempts |
 |---|---|---|
 | 1 | 20 | 8 |
 | 2 (after adjustments) | 20 | 18 |
 
+- **Test base:** the tests used the printed guide rails from the power station (parts [07/07b](en/go2_power_station/part3_mechanism_build/README.md)). Only the rails were used: the servo, the ESP32 and the power on/off mechanism have not been validated on the real robot.
 - **When an attempt counted as correct:** the rule is based on the rails on the base. If the robot fitted correctly into the rails, the attempt was correct.
 - **Adjustments between the rounds:** mainly to how the robot came in before reaching the parking position.
 - **Not measured yet:** the parking error in millimeters and degrees. The accuracy figures in [How it works](#1-precise-parking-with-an-apriltag) (≤ 5 mm, ≤ 10 mm, ≤ 2°) are design targets and were not checked in these tests.
-- The power station (`go2_power_station`) is still a concept (v0.2) and has not been validated on the real robot.
+- Apart from the guide rails used as the test base, the power station (`go2_power_station`) is still a concept (v0.2) and has not been validated on the real robot.
 
 The results above cover only the parking that was tested; other functions described in this README may not be implemented yet.
 
