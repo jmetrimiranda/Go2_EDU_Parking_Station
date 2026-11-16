@@ -1,0 +1,9 @@
+# Pacotes gerados (conteúdo já versionado nas pastas)
+*.zip
+
+# Credenciais do firmware (ver estacao_go2/parte4_software_mecanismo)
+secrets.h
+
+# Python
+__pycache__/
+*.pyc
